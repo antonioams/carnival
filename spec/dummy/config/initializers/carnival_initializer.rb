@@ -1,25 +1,40 @@
 Carnival.configure do |config|
-  Rails.application.config.assets.precompile += %w( carnival/* )
   config.menu = {
-    administration: {
-      label: 'administration',
-      link: '/admin/customers',
-      class: 'administracao',
-      subs: [{
-        label: 'posts',
-        link: '/admin/posts'
-      }]
+    menu1: {
+      label: 'Menu 1',
+      link: '#',
+      class: 'menu-1',
+      subs: [
+        {
+          label: 'Sub Menu 1',
+          link: '#'
+        },
+        {
+          label: 'Sub Menu 2',
+          link: '#'
+        }
+      ]
+    },
+    menu2: {
+      label: 'Menu 2',
+      link: '#',
+      class: 'menu-2',
+      subs: [
+        {
+          label: 'Sub Menu 1',
+          link: '#'
+        },
+        {
+          label: 'Sub Menu 2',
+          link: '#'
+        }
+      ]
     }
   }
 
-  # Custom CSS Files
-  # config.custom_css_files = ["samplefile.css"]
-
-  # Custom Javascript Files
-  # config.custom_javascript_files = ["samplefile.js"]
-
-  # Determine root action
-  # config.root_action = 'carnival/admin_users#index'
-
+  # config.custom_javascript_files = %w( angular.js )
+  # config.custom_css_files = %w( angular.css )
   config.use_full_model_name = false
+  # config.root_action = 'admin/articles#index'
+  Rails.application.config.assets.precompile += %w( carnival/* )
 end

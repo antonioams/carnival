@@ -1,0 +1,9 @@
+%nav
+  %ul.pagination
+    - @paginator.pages.each do |page_hash|
+      %li{class: page_hash[:css_class]}
+        = link_to(t(page_hash[:label]), page_hash[:js_function], :class => "carnival-action-button")
+    %li.disabled
+      %a{href: "#"}
+        = "#{t('paginate_total')}: #{@query_service.total_records}"
+

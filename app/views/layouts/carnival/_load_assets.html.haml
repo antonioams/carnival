@@ -1,0 +1,9 @@
+= stylesheet_link_tag "carnival/carnival", :media => "all"
+= javascript_include_tag "carnival/carnival", "data-turbolinks-track" => true
+= stylesheet_link_tag controller_name if Rails.application.assets.find_asset("#{controller_name}.css")
+= javascript_include_tag controller_name if Rails.application.assets.find_asset("#{controller_name}.js")
+= csrf_meta_tags
+- Carnival::Config.custom_javascript_files.each do |file|
+	= javascript_include_tag file
+- Carnival::Config.custom_css_files.each do |file|
+	= stylesheet_link_tag file, :media => "all"

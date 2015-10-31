@@ -1,0 +1,8 @@
+- params = @query_form.to_hash
+%nav
+  %ul.pagination
+    - if presenter.has_action?(:csv)
+      %li
+        = link_to presenter.model_path(:index, { format: 'csv' }.merge(params)), class: 'btn btn-primary' do
+          = t('download_as_csv')
+		

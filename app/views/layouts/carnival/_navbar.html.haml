@@ -1,0 +1,29 @@
+- menus = Carnival::Config::menu.clone
+- menu_presenter = Carnival::MenuPresenter.new @_controller
+
+.container-fluid
+  .navbar-header
+    %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    - if partial_exist? 'carnival/app_logo' 
+      = render 'carnival/app_logo'
+    -else
+      %a.navbar-brand{:href => "#{carnival_root_url}"}= "#{Carnival::Config.app_name}"
+  .navbar-menu.collapse.navbar-collapse
+    %ul.nav.navbar-nav
+      - menus.each do |key, menu|
+        %li.dropdown
+          = link_to menu_link(menu[:link]), { class: "dropdown-toggle", aria:{ expanded: "false", haspopup: "true" }, data: { toggle: "dropdown"}, role: "button"} do
+            = t("carnival.menu.#{ menu[:label].downcase.gsub(' ', '_') }")
+            %span.caret
+          - if menu[:subs].present?
+            %ul.dropdown-menu
+              - menu[:subs].each do |sub|
+                %li
+                  - if menu_presenter.before_menu(sub[:label])
+                    = link_to t("carnival.menu.#{ sub[:label].downcase.gsub(' ', '_') }"), menu_link(sub[:link]), {class: "#{set_resource_actived_if_current(sub[:link])} #{sub[:class]}"}
+    = carnival_render_if_exist 'carnival/extra_header'
+  

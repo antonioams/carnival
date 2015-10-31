@@ -6,8 +6,10 @@ require 'carnival/config'
 require 'carnival/routes'
 require 'carnival/version'
 require 'haml-rails'
+require 'coffee-rails'
 require 'will_paginate'
 require 'csv'
+require 'bootstrap-sass'
 
 module Carnival
   def self.configure

@@ -1,7 +1,7 @@
 module Carnival
   class BaseAdminController < InheritedResources::Base
     respond_to :html, :json
-    layout 'carnival/admin'
+    layout 'carnival/carnival'
     before_action :instantiate_presenter
     helper_method :back_or_model_path
 

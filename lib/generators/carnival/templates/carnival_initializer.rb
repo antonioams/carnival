@@ -1,54 +1,39 @@
 Carnival.configure do |config|
-
-  Rails.application.config.assets.precompile += %w( carnival/* )
-  config.menu =
-  {
-    :admin => {
-          :label => "aaa",
-          :class => "ssss",
-          :link => "ddd",
-          :subs => [
-            {
-              :label => "menu.testes",
-              :class => "tst",
-              :link => "/admin/testes"
-            },
-            {
-              :label => "55555",
-              :class => "66666",
-              :link => "777777"
-            }
-          ]
+  config.menu = {
+    menu-1: {
+      label: 'Menu 1',
+      link: '#',
+      class: 'menu-1',
+      subs: [
+        {
+          label: 'Sub Menu 1',
+          link: '#'
+        },
+        {
+          label: 'Sub Menu 2',
+          link: '#'
+        }
+      ]
     },
-    :locations => {
-      :label => "menu.locations",
-      :class => "",
-      :link => "#",
-      :subs => [
+    menu-2: {
+      label: 'Menu 2',
+      link: '#',
+      class: 'menu-2',
+      subs: [
         {
-          :label => "menu.countries",
-          :class => "countries",
-          :link => "/admin/countries"
+          label: 'Sub Menu 1',
+          link: '#'
         },
         {
-          :label => "menu.states",
-          :class => "states",
-          :link => "/admin/states"
-        },
-        {
-          :label => "menu.cities",
-          :class => "cities",
-          :link => "/admin/cities"
+          label: 'Sub Menu 2',
+          link: '#'
         }
       ]
     }
   }
-  # Custom CSS Files
-  # config.custom_css_files = ["samplefile.css"]
 
-  # Custom Javascript Files
-  # config.custom_javascript_files = ["samplefile.js"]
-
-  # Determine root action
-  #config.root_action = 'carnival/admin_users#index'
+  #config.custom_javascript_files = %w( angular.js )
+  #config.custom_css_files = %w( angular.css )
+  #config.use_full_model_name = false
+  #config.root_action = 'admin/articles#index'
 end
