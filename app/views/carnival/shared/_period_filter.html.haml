@@ -1,52 +1,80 @@
 - date_filter_field = presenter.date_filter_field
 - if date_filter_field.present?
-  #filtro_tempo
-    = link_to t("date_filter.#{date_period_label}"), "#", :id=>"filtro_periodo", :class => "carnival-action-button"
-    #container_tempo
-      %ul.atalhos{:style=>"clear:left"}
-        - i = 0
-        - date_filter_field.date_filter_periods.keys.each do |period|
-          %li.period-selector{:data => {:from => date_filter_field.date_filter_periods[period][0], :to => date_filter_field.date_filter_periods[period][1]}}
-            = link_to t("date_filter.#{period}"), ""
-          - i = i + 1
-      .custom.carnival-form
-        = simple_form_for "", :url=> "", :method=> :get, :html=>{:id=>"form_tempo", :class=> "clear_both"} do |f|
-          = f.input :filtro, :as=> :hidden, :input_html=>{:value=> :range}
-          .field
-            = label_tag t("from")
-            = f.input :from, :label=> false, :input_html=>{:class=> "datepicker"}
-          .field
-            = label_tag t("to")
-            = f.input :to, :label=> false, :input_html=>{:class=> "datepicker"}
-          .action
-            = link_to "", "#", :id=> "search_button_range"
-          .clear_both
-
+  .btn-group.col-xs-8.col-sm-8.col-md-8.col-lg-8
+    %button.btn.btn-default.dropdown-toggle{type: "button", data:{toggle: "dropdown"}, aria: {haspopup: "true", expanded: "false"}}
+      = t("carnival.from")
+      %span.period-label-from
+        = date_filter_field.date_filter_periods[date_filter_field.params[:date_filter_default]][0]
+      = t("carnival.to")
+      %span.period-label-to
+        = date_filter_field.date_filter_periods[date_filter_field.params[:date_filter_default]][1]
+      %span.caret
+    .dropdown-menu.period-selector-container
+      .month-period-selector.col-xs-4.col-sm-4.col-md-4.col-lg-4
+      .custom-period-selector.col-xs-8.col-sm-8.col-md-8.col-lg-8
+        .input-group.input-daterange
+          %span.input-group-addon
+            = t("carnival.from")
+          %input.form-control{type: "text", id: "from_date_period",value: "#{date_filter_field.date_filter_periods[date_filter_field.params[:date_filter_default]][0]}", data:{mask: t('date.formats.mask.default')}, placeholder:  t('date.formats.placeholder.default')}
+          %span.input-group-addon
+            = t("carnival.to")
+          %input.form-control{type: "text", id: "to_date_period", value: "#{date_filter_field.date_filter_periods[date_filter_field.params[:date_filter_default]][1]}", data:{mask: t('date.formats.mask.default')}, placeholder:  t('date.formats.placeholder.default')}
+          %span.input-group-btn
+            %button.btn.btn-default{type: "button"}
+              = t("carnival.apply")
+        .shortcut-period-selector
+          %ul.nav.nav-pills
+            - date_filter_field.date_filter_periods.keys.each do |period|
+              %li.period-selector.col-xs-6.col-sm-6.col-md-6.col-lg-6{class: "#{date_filter_field.params[:date_filter_default] == period ? 'active' : ''}", data: {from: date_filter_field.date_filter_periods[period][0], to: date_filter_field.date_filter_periods[period][1]}}
+                = link_to t("date_filter.#{period}"), "#", class: "shorcut-period"
   :javascript
+    var shorcutSelected = false
     $(document).ready(function(){
-      $("#filtro_periodo").click(function(e){
-        e.preventDefault();
-        $("#container_tempo").toggle();
+      $('.month-period-selector').datepicker({
+          format: "#{t('date.formats.js.default')}",
+          minViewMode: 'months',
+          viewMode:  'months',
+          smartMonthSelect: true
+      }).on("changeDate", function(e) {
+        setDateLabel("from", e.format(0))
+        setDateLabel("to", e.format(1))
+        if(!shorcutSelected){
+          cleanShortcuts();
+        }
       });
-
-      $(".period-selector").click(function(e){
-        e.preventDefault();
-        $("#_from").val($(this).data("from"));
-        $("#_to").val($(this).data("to"));
-        $("#filtro_periodo").text($(this).text());
-        filter_date($(this).text(), $("#_from").val(), $("#_to").val())
+      $('.custom-period-selector .input-daterange').datepicker({
+        format: "#{t('date.formats.js.default')}",
+        todayHighlight: true
+      }).on("changeDate", function(e) {
+        setDatesOnMonthCalendar($("#from_date_period").val(), $("#to_date_period").val())
       });
-
-      $("#search_button_range").click(function(e){
-        e.preventDefault();
-        filter_date($("#_from").val() + " - " + $("#_to").val(), $("#_from").val(), $("#_to").val())
-      })
+      $('input').each(function(index, element){
+        if($(element).data('mask'))
+          $(element).mask($(element).data('mask'));
+      });
+      $('.shorcut-period').click(function(event){
+        shorcutSelected = true
+        setDateLabel("from", $(this).parent().data('from'))
+        setDateLabel("to", $(this).parent().data('to'))
+        cleanShortcuts();
+        $(this).parent().addClass('active')
+        setDatesOnMonthCalendar($(this).parent().data('from'), $(this).parent().data('to'))
+        event.stopPropagation()
+      });
     });
-    function filter_date(label, from, to){
-      Carnival.setIndexPageParam('date_period_from', from)
-      Carnival.setIndexPageParam('date_period_to', to)
-      Carnival.setIndexPageParam('date_period_label', label.trim())
-      $("#filtro_periodo").html(label);
-      Carnival.reloadIndexPage();
-      $("#container_tempo").toggle();
+
+    var setDateLabel = function(type, date){
+      $("#" + type + "_date_period").val(date)
+      $(".period-label-" + type).text(date)
+    }
+
+    var cleanShortcuts = function(){
+      $("li.period-selector").removeClass('active')
+    }
+
+    var setDatesOnMonthCalendar = function(firstDate, lastDate){
+      $(".month-period-selector").datepicker('setDates', firstDate, lastDate)
+      $("span.month").click(function(){
+        shorcutSelected = false
+      });
     }

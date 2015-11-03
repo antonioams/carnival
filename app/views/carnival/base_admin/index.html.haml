@@ -21,24 +21,28 @@
       Carnival.batchActionInitialize("#{t('select_one_item')}");
     });
 
-.carnival-linsting-tools
-  .carnival-index-form
-    = form_tag('', method: 'get') do
-      - @query_form.instance_variables.each do |variable|
-        - next if variable.to_s == '@advanced_search'
-        - variable_name = variable.to_s.gsub '@', ''
-        = hidden_field_tag(variable_name, @query_form.send(variable_name) )
+.row
+  = render '/carnival/shared/period_filter', :params => params, presenter: presenter, date_period_label: @query_form.date_period_label
+  .actions.col-xs-6.col-sm-6.col-md-6.col-lg-6
+    .carnival-linsting-tools
+      .carnival-index-form
+        = form_tag('', method: 'get') do
+          - @query_form.instance_variables.each do |variable|
+            - next if variable.to_s == '@advanced_search'
+            - variable_name = variable.to_s.gsub '@', ''
+            = hidden_field_tag(variable_name, @query_form.send(variable_name) )
 
-      .advanced-search
-        - advanced_search_params = {}
-        - if presenter.advanced_search_fields.size > 0
-          = render '/carnival/shared/advanced_search', :params => @query_form.advanced_search, presenter: presenter
+          .advanced-search
+            - advanced_search_params = {}
+            - if presenter.advanced_search_fields.size > 0
+              = render '/carnival/shared/advanced_search', :params => @query_form.advanced_search, presenter: presenter
 
-  .actions
+.row
+  .actions.col-xs-6.col-sm-6.col-md-6.col-lg-6
+    = render '/carnival/shared/scope', :params => params, presenter: presenter, selected_scope: @query_form.scope, scopes_total: @query_service.scopes_number
+  .actions.col-xs-6.col-sm-6.col-md-6.col-lg-6
     - presenter.actions_for_page.each do |key, action|
       = render '/carnival/shared/action_default', :label=>t("#{presenter.model_name}.#{action.name}", default: t("carnival.#{action.name}")), :path=> action.path(presenter)
-  = render '/carnival/shared/period_filter', :params => params, presenter: presenter, date_period_label: @query_form.date_period_label
-  = render '/carnival/shared/scope', :params => params, presenter: presenter, selected_scope: @query_form.scope, scopes_total: @query_service.scopes_number
 
   - unless presenter.index_as_table?
     .sorter

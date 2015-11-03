@@ -1,6 +1,8 @@
 en:
 
   carnival:
+    apply: Apply
+    index: Index
     show: View
     new: New
     edit: Edit
@@ -34,3 +36,13 @@ en:
   update: Update
   from: From
   to: To
+
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      js:
+        default: "yyyy/mm/dd"
+      mask:
+        default: "0000/00/00"
+      placeholder:
+        default: "____/__/__"

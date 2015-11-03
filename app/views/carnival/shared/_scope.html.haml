@@ -1,13 +1,13 @@
 - scopes = presenter.scopes
 - if scopes.present? && scopes.size > 0
   - params["data-scope"] = presenter.default_scope.name
-  %ul.scopes
+  %ul.nav.nav-pills{role:"tablist"}
     - scopes.each do |key, scope|
       - unless scope.hidden?(controller)
-        %li.scope{:class => "#{selected_scope.to_sym == key ? 'selected' : ''}"}
+        %li.scope{:class => "#{selected_scope.to_sym == key ? 'active' : ''}", role:"presentation"}
           %a{:class => "carnival-scope carnival-action-button", :data => {:scope => "#{scope.name}"}}
             = t("#{presenter.model_name.underscore}.scope.#{scope.name}")
-            %span.count (#{scopes_total[scope.name]})
+            %span.badge #{scopes_total[scope.name]}
 
 :javascript
   $(document).ready(function(){

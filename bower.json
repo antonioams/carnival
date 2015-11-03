@@ -1,0 +1,24 @@
+{
+  "name": "Carnival",
+  "authors": [
+    "Vizir Software Studio<contato@vizir.com.br>"
+  ],
+  "description": "Tutorial about Bower and Rails",
+  "license": "MIT",
+  "homepage": "http://github.com/Vizir/carnival",
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "bootstrap-datepicker": "https://github.com/antonioams/bootstrap-datepicker.git#3c9acd5ca2eb68ac06b5f710050e0bf0f4a50abc",
+    "jquery-mask-plugin": "jQuery-Mask-Plugin#~1.13.4"
+  },
+  "main": "",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -20,7 +20,7 @@
       .carnival-header-wrappeer
         .carnival-header
           .carnival-custom-logo
-            - if partial_exist? 'carnival/app_logo' 
+            - if partial_exist? 'carnival/app_logo'
               = render 'carnival/app_logo'
             -else
               = link_to "#{Carnival::Config.app_name}", carnival_root_url

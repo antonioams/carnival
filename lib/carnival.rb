@@ -9,7 +9,8 @@ require 'haml-rails'
 require 'coffee-rails'
 require 'will_paginate'
 require 'csv'
-require 'bootstrap-sass'
+require 'bower-rails'
+require 'rails-i18n'
 
 module Carnival
   def self.configure

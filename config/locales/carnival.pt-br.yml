@@ -1,6 +1,6 @@
 pt-BR:
-
   carnival:
+    apply: Aplicar
     show: Visualizar
     new: Novo
     edit: Editar
@@ -112,7 +112,12 @@ pt-BR:
       short: "%d de %B"
       long: "%d de %B de %Y"
       only_day: "%d"
-
+      js:
+        default: "dd/mm/yyyy"
+      mask:
+        default: "00/00/0000"
+      placeholder:
+        default: "__/__/____"
     day_names: [Domingo, Segunda, Terça, Quarta, Quinta, Sexta, Sábado]
     abbr_day_names: [Dom, Seg, Ter, Qua, Qui, Sex, Sáb]
     month_names: [~, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
@@ -206,57 +211,3 @@ pt-BR:
     array:
       sentence_connector: "e"
       skip_last_comma: true
-
-  default_columns: &default_columns
-    created_at: Criado em
-    updated_at: Atualizado em
-    id: ID
-
-  admin_user:
-    name: Nome
-    lista: Usuários administradores
-    admin: Administrador
-    account_name: Contaform
-    notification: Notificação
-    <<: *default_columns
-
-  # Active Record
-  activerecord:
-    attributes:
-      carnival/admin_user:
-        avatar: Foto
-        current_sign_in_at: Acesso atual em
-        email: E-mail
-        id: Código
-        last_sign_in_at: Último acesso em
-        name: Nome
-        photo: Foto
-        sign_in_count: Total de acessos
-    errors:
-      template:
-        header:
-          one: "Não pôde ser salvo: 1 erro"
-          other: "Não pôde ser salvo: %{count} erros."
-        body: "Por favor, cheque os seguintes campos:"
-      messages:
-        inclusion: "não está incluso na lista"
-        exclusion: "não está disponível"
-        invalid: "não é válido"
-        confirmation: "não bate com a confirmação"
-        accepted: "precisa ser aceito"
-        empty: "não pode ser vazio"
-        blank: "não pode ser vazio"
-        too_long: "é muito longo (não mais do que %{count} caracteres)"
-        too_short: "é muito curto (não menos do que %{count} caracteres)"
-        wrong_length: "não é do tamanho correto (precisa ter %{count} caracteres)"
-        taken: "não está disponível"
-        not_a_number: "não é um número"
-        greater_than: "precisa ser maior do que %{count}"
-        greater_than_or_equal_to: "precisa ser maior ou igual a %{count}"
-        equal_to: "precisa ser igual a %{count}"
-        less_than: "precisa ser menor do que %{count}"
-        less_than_or_equal_to: "precisa ser menor ou igual a %{count}"
-        odd: "precisa ser ímpar"
-        even: "precisa ser par"
-    models:
-      admin_user: Usuário Administrador

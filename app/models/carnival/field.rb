@@ -61,14 +61,14 @@ module Carnival
       if @params[:date_filter_periods]
         @params[:date_filter_periods]
       else
-        {:today => ["#{Date.today}", "#{Date.today}"],
-         :yesterday => ["#{Date.today - 1.day}", "#{Date.today - 1.day}"],
-         :this_week => ["#{Date.today.beginning_of_week}", "#{Date.today.end_of_week}"],
-         :last_week => ["#{(Date.today - 1.week).beginning_of_week}", "#{(Date.today - 1.week).end_of_week}"],
-         :this_month => ["#{Date.today.beginning_of_month}", "#{Date.today.end_of_month}"],
-         :last_month => ["#{(Date.today - 1.month).beginning_of_month}", "#{(Date.today - 1.month).end_of_month}"],
-         :this_year => ["#{Date.today.beginning_of_year}", "#{Date.today.end_of_year}"],
-         :last_year => ["#{(Date.today - 1.year).beginning_of_year}", "#{(Date.today - 1.year).end_of_year}"]
+        {:today => ["#{I18n.l Date.today, format: :default}", "#{I18n.l Date.today, format: :default}"],
+         :yesterday => ["#{I18n.l Date.today - 1.day, format: :default}", "#{I18n.l Date.today - 1.day, format: :default}"],
+         :this_week => ["#{I18n.l Date.today.beginning_of_week, format: :default}", "#{I18n.l Date.today.end_of_week, format: :default}"],
+         :last_week => ["#{I18n.l (Date.today - 1.week).beginning_of_week, format: :default}", "#{I18n.l (Date.today - 1.week).end_of_week, format: :default}"],
+         :this_month => ["#{I18n.l Date.today.beginning_of_month, format: :default}", "#{I18n.l Date.today.end_of_month, format: :default}"],
+         :last_month => ["#{I18n.l (Date.today - 1.month).beginning_of_month, format: :default}", "#{I18n.l (Date.today - 1.month).end_of_month, format: :default}"],
+         :this_year => ["#{I18n.l Date.today.beginning_of_year, format: :default}", "#{I18n.l Date.today.end_of_year, format: :default}"],
+         :last_year => ["#{I18n.l (Date.today - 1.year).beginning_of_year, format: :default}", "#{I18n.l (Date.today - 1.year).end_of_year, format: :default}"]
         }
       end
     end
